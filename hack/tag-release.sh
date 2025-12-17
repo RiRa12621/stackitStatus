@@ -75,7 +75,7 @@ go install fyne.io/tools/cmd/fyne@latest
 
 echo "Packaging App..."
 # Set the internal app version to match the tag
-fyne package -os darwin -icon assets/icon.png -appVersion "$NEWTAG" -name stackitStatus
+fyne package -os darwin -icon assets/icon.png
 
 echo "Creating DMG..."
 # Clean up previous runs
