@@ -1,4 +1,7 @@
 # stackitStatus
+
+[![Fyne Package](https://github.com/RiRa12621/stackitStatus/actions/workflows/fyne.yml/badge.svg)](https://github.com/RiRa12621/stackitStatus/actions/workflows/fyne.yml)
+
 A lightweight macOS menu bar application that monitors the status of STACKIT services.
 
 ## What it does
