@@ -25,6 +25,14 @@ jobs:
     - name: Package
       run: fyne package -os darwin -icon assets/icon.png
 
+    - name: Build dmg
+      run: |
+        mkdir source_folder
+        cp -r stackitStatus.app source_folder/
+        ln -s /Applications source_folder/Applications
+        hdiutil create -volname "STACKIT Status Installer" -srcfolder "./source_folder" -ov -format UDZO "stackitStatus.dmg"
+        rm -rf source_folder
+
     - uses: actions/upload-artifact@v4
       with:
-        path: stackitStatus.app
+        path: stackitStatus.dmg
