@@ -12,27 +12,31 @@ jobs:
   build:
     runs-on: macos-latest
     steps:
-    - uses: actions/checkout@v4
+      - uses: actions/checkout@v6
 
-    - name: Set up Go
-      uses: actions/setup-go@v4
-      with:
-        go-version: '1.25'
+      - name: Set up Go
+        uses: actions/setup-go@v4
+        with:
+          go-version: '1.25'
 
-    - name: Get Fyne
-      run: go install fyne.io/tools/cmd/fyne@latest
+      - name: Get Fyne
+        run: go install fyne.io/tools/cmd/fyne@latest
 
-    - name: Package
-      run: fyne package -os darwin -icon assets/icon.png
+      - name: Package
+        run: fyne package -os darwin -icon assets/icon.png
 
-    - name: Build dmg
-      run: |
-        mkdir source_folder
-        cp -r stackitStatus.app source_folder/
-        ln -s /Applications source_folder/Applications
-        hdiutil create -volname "STACKIT Status Installer" -srcfolder "./source_folder" -ov -format UDZO "stackitStatus.dmg"
-        rm -rf source_folder
+      - name: Build dmg
+        run: |
+          mkdir source_folder
+          cp -r stackitStatus.app source_folder/
+          ln -s /Applications source_folder/Applications
+          hdiutil create -volname "STACKIT Status Installer" -srcfolder "./source_folder" -ov -format UDZO "stackitStatus.dmg"
+          rm -rf source_folder
 
-    - uses: actions/upload-artifact@v4
-      with:
-        path: stackitStatus.dmg
+      - name: Upload to Release
+        uses: softprops/action-gh-release@v1
+        with:
+          tag_name: ${{ env.RELEASE_VERSION }}
+          files: stackitStatus.dmg
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
