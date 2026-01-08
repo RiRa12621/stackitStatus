@@ -39,6 +39,4 @@ cd stackitStatus
 
 # Run directly
 go run main.go
-
-
 ```
